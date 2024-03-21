@@ -1,27 +1,70 @@
-# ItsCart
+Esercizio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+creare un componente per la singola card
 
-## Development server
+    prodotto in input, un output per il click su add e uno per il click su details
+    internamente calcola il prezzo effettivo considerando sconto e iva
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+gestire la logica per l'aggiunta di un componente al carrello quando si fa click su add
+creare un componente per il carrello da visualizzare lateralmente
 
-## Code scaffolding
+    visualizza il prezzo totale in alto
+    subito sotto un pulsante per andare alla pagina /checkout
+    ancora sotto la lista degli articoli aggiunti con il pulsante per rimuoverli
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+    creare una pagina di dettaglio del prodotto
+        navigare alla pagina quando si fa click su details
+        nella pagina è sempre visibile il carrello lateralmente
+        in una sezione della pagina sarà possibile andare a selezionare la quantità e aggiungere al carrello
 
-## Build
+Product-card
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Specifiche:
 
-## Running unit tests
+    prende un prodotto come input
+    calcola il prezzo compreso di sconto e iva
+    ha un output (add) per quando l'utente decide di aggiungere un prodotto al carrello
+    ha un output (detail) per quanto l'utente decide di andare alla pagina di dettaglio
+    mostra un errore quando la quantità è minore di 1 e disabilita il pulsante
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+side-cart
 
-## Running end-to-end tests
+E' presente lateralmente sia nella pagina di ricerca sia in quella di dettaglio di un prodotto
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Specifiche:
 
-## Further help
+    prende automaticamente i dati da CartSourceService
+    mostra in alto il totale da pagare (quindi compreso di tutti i calcoli)
+    mostra il pulsante checkout che porta alla pagina di checkout
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+    mostra la lista degli articoli presenti nel carrello con
+        nome
+        quantità non modificabile
+        prezzo totale
+        pulsante per rimuovere l'elemento dal carrello
+    da sviluppare come smart-component, non riceve input dalla pagina
+    viene nascosto automaticamente se il carrello è vuoto (questa logica va gestita esternamente al componente)
+
+product-detail
+
+Specifiche:
+
+    è un componente di pagina sotto la rotta /products/:id
+
+    mostra:
+        una finta immagine sulla sinistra (se volete andate a modificare le api e tornate anche l'url di una immagine, faker ha i metodi per generarli)
+        il nome del prodotto
+        il prezzo e lo sconto
+        l'input con la quanità e il pulsante add
+        la descrizione
+        un link per tornare alla ricerca
+    l'input deve mostrare un errore se invalido (minore di 1) e il pulsante si deve disabilitare
+    se riuscite fate in modo che il prodotto venga mandato tramite un resolver
+
+Cose che non abbiamo visto da cercare
+
+    come creare la rotta /products/:id e andare a prendere il parametro id da un component o da un resolver
+    come aggiungere link alle rotte (vedere routerLink)
+    come applicare dinamicamente classi a un tag nel template. Questo ci serve per usare le classi di bootstrap per la validazione
+    come abilitare e disabilitare un elemento
+    come combinare più observable. Questo servirà nel carrello laterale dove abbiamo sia gli elmenti che l'iva e dobbiamo fare i calcoli. Vedere il metodo combineLatest di rxjs
